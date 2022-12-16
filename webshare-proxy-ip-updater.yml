@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  app:
+    image: luois45/webshare-proxy_ip-updater:latest
+    environment:
+      - APIKEY=!!!CENSORED!!!
+      - DELAY=30
+    restart: always
