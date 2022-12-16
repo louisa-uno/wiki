@@ -13,7 +13,7 @@ services:
       - TZ=Europe/Berlin
     volumes:
       - /mnt/raid1/docker/volumes/sonarr-config:/config
-      - /mnt/raid1/nextcloud/louis/files/Medien:/tv
+      - /mnt/raid1/nextcloud/louis/files/Medien/Serien:/tv
       - /mnt/raid1/nextcloud/louis/files/Downloads:/downloads
     ports:
       - 8989:8989
@@ -31,7 +31,7 @@ services:
       - TZ=Europe/Berlin
     volumes:
       - /mnt/raid1/docker/volumes/radarr-config:/config
-      - /mnt/raid1/nextcloud/louis/files/Medien:/movies
+      - /mnt/raid1/nextcloud/louis/files/Medien/Filme:/movies
       - /mnt/raid1/nextcloud/louis/files/Downloads:/downloads
     ports:
       - 7878:7878
@@ -79,4 +79,18 @@ services:
       - 5055:5055
     volumes:
       - /mnt/raid1/docker/volumes/jellyseerr-config:/app/config
+    restart: unless-stopped
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /mnt/raid1/docker/volumes/bazarr-config:/config
+      - /mnt/raid1/nextcloud/louis/files/Medien/Filme:/movies
+      - /mnt/raid1/nextcloud/louis/files/Medien/Serien:/tv
+    ports:
+      - 6767:6767
     restart: unless-stopped
