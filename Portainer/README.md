@@ -17,3 +17,4 @@ docker service create \
   --mount type=bind,src=//var/run/docker.sock,dst=/var/run/docker.sock \
   --mount type=bind,src=//var/lib/docker/volumes,dst=/var/lib/docker/volumes \
   portainer/agent:2.16.0
+```
