@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  dashdot:
+    image: amir20/dozzle
+    container_name: dozzle
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 48080:8080
+    restart: unless-stopped
+    environment:
+      DOZZLE_LEVEL: trace
+      DOZZLE_USERNAME: admin
+      DOZZLE_PASSWORD: !!!CENSORED!!!
+      DOZZLE_NO_ANALYTICS: 1
+    healthcheck:
+      test: [ "CMD", "/dozzle", "healthcheck" ]
+      interval: 3s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
