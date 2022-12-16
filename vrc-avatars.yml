@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: !!!CENSORED!!!
+      MYSQL_DATABASE: vrc-avatars
+      MYSQL_TCP_PORT: 53306
+      MYSQL_UNIX_PORT: 53306
+    volumes:
+     - /mnt/raid1/docker/volumes/vrc-avatar-db-mysql:/var/lib/mysql
+    ports:
+      - 53306:53306
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+    - db
+    links:
+      - db
+    environment:
+    - PMA_HOST=192.168.178.188
+    - PMA_PORT=53306
+    - PMA_ARBITRARY= 1
+    restart: always
+    ports:
+      - 58080:80
