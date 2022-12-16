@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    volumes:
+      - /mnt/raid1/docker/volumes/vaultwarden-data:/data/
+    restart: always
+    ports:
+      - 480:80
