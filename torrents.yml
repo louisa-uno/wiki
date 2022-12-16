@@ -1,0 +1,82 @@
+version: "3.7"
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    user: 0:0
+    depends_on:
+      - jackett
+      - qbittorrent
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Berlin
+    volumes:
+      - /mnt/raid1/docker/volumes/sonarr-config:/config
+      - /mnt/raid1/nextcloud/louis/files/Medien:/tv
+      - /mnt/raid1/nextcloud/louis/files/Downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    user: 0:0
+    depends_on:
+      - jackett
+      - qbittorrent
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Berlin
+    volumes:
+      - /mnt/raid1/docker/volumes/radarr-config:/config
+      - /mnt/raid1/nextcloud/louis/files/Medien:/movies
+      - /mnt/raid1/nextcloud/louis/files/Downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+      - AUTO_UPDATE=true
+    volumes:
+      - /mnt/raid1/docker/volumes/jackett-config:/config
+      - /mnt/raid1/docker/volumes/jackett-downloads:/downloads
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+      - WEBUI_PORT=8080
+    volumes:
+      - /mnt/raid1/docker/volumes/qbittorrent-config:/config
+      - /mnt/raid1/nextcloud/louis/files/Downloads:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    depends_on:
+      - sonarr
+      - radarr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Europe/Berlin
+    ports:
+      - 5055:5055
+    volumes:
+      - /mnt/raid1/docker/volumes/jellyseerr-config:/app/config
+    restart: unless-stopped
