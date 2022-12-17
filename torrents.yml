@@ -84,9 +84,9 @@ services:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Berlin
     volumes:
       - /mnt/raid1/docker/volumes/bazarr-config:/config
       - /mnt/raid1/nextcloud/louis/files/Medien/Filme:/movies
