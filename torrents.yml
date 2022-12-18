@@ -94,3 +94,30 @@ services:
     ports:
       - 6767:6767
     restart: unless-stopped
+  tdarr:
+    container_name: tdarr
+    image: ghcr.io/haveagitgat/tdarr:latest
+    ports:
+      - 8265:8265
+      - 8266:8266
+      - 8267:8267
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Berlin
+      - UMASK_SET=002
+      - serverIP=192.168.178.188
+      - serverPort=8266
+      - webUIPort=8265
+      - internalNode=true
+      - nodeID=InternalNode
+    volumes:
+      - /mnt/raid1/docker/volumes/tdarr-server:/app/server
+      - /mnt/raid1/docker/volumes/tdarr-configs:/app/configs
+      - /mnt/raid1/docker/volumes/tdarr-logs:/app/logs
+      - /mnt/raid1/docker/volumes/tdarr-media:/media
+      - /mnt/raid1/docker/volumes/tdarr-temp:/temp
+      - /mnt/raid1/nextcloud/louis/files/Medien/Filme:/home/Tdarr/Media/Movies
+      - /mnt/raid1/nextcloud/louis/files/Medien/Serien:/home/Tdarr/Media/TVShows
+      - /mnt/raid1/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
+    restart: unless-stopped
