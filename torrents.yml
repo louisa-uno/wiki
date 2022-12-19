@@ -121,3 +121,18 @@ services:
       - /mnt/raid1/nextcloud/louis/files/Medien/Serien:/home/Tdarr/Media/TVShows
       - /mnt/raid1/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
     restart: unless-stopped
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Berlin
+    volumes:
+      - /mnt/raid1/docker/volumes/readarr-config:/config
+      - /mnt/raid1/nextcloud/louis/files/Medien/Bücher:/books
+      - /mnt/raid1/nextcloud/louis/files/Medien/Hörbücher:/spokenBooks
+      - /mnt/raid1/nextcloud/louis/files/Downloads:/downloads
+    ports:
+      - 8787:8787
+    restart: unless-stopped
