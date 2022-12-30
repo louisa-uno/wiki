@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  web:
+    image: gitlab/gitlab-ee:latest
+    restart: always
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.louis45.com'
+    ports:
+      - 380:80
+      - 3443:443
+      - 22:22
+    volumes:
+      - /mnt/raid1/gitlab/etc:/etc/gitlab
+      - /mnt/raid1/gitlab/opt:/var/opt/gitlab
+    shm_size: 256m
