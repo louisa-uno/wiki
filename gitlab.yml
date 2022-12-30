@@ -9,7 +9,7 @@ services:
     ports:
       - 380:80
       - 3443:443
-      - 22:22
+      - 322:22
     volumes:
       - /mnt/raid1/gitlab/etc:/etc/gitlab
       - /mnt/raid1/gitlab/opt:/var/opt/gitlab
