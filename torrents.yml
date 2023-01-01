@@ -136,3 +136,27 @@ services:
     ports:
       - 8787:8787
     restart: unless-stopped
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Berlin
+      - VERSION=docker
+    volumes:
+      - /mnt/raid1/docker/volumes/plex-config:/config
+      - /mnt/raid1/nextcloud/louis/files/Medien/Serien:/tv
+      - /mnt/raid1/nextcloud/louis/files/Medien/Filme:/movies
+    ports:
+      - 32400:32400/tcp
+      - 1900:1900/udp
+      - 3005:3005/tcp
+      - 5353:5353/udp
+      - 8324:8324/tcp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+      - 32469:32469/tcp
+    restart: unless-stopped
