@@ -12,4 +12,4 @@ services:
       - ESPHOME_DASHBOARD_USE_PING=true
     ports:
       - 6052:6052/tcp
-      - 5353:5353/udp
+      - 6353:5353/udp
