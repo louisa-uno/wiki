@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  sonarr:
+  n8n:
     image: n8nio/n8n
     container_name: n8n
     volumes:
