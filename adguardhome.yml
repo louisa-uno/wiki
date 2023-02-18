@@ -31,4 +31,4 @@ services:
       - default
 networks:
   default:
-    driver: overlay
+    driver: host
