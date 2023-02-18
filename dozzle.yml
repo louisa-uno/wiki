@@ -11,7 +11,7 @@ services:
     environment:
       DOZZLE_LEVEL: trace
       DOZZLE_USERNAME: admin
-      DOZZLE_PASSWORD
+      DOZZLE_PASSWORD: !!!CENSORED!!!
       DOZZLE_NO_ANALYTICS: 1
     healthcheck:
       test: [ "CMD", "/dozzle", "healthcheck" ]
