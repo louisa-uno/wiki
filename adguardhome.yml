@@ -3,8 +3,8 @@ services:
   adguardhome:
     image: adguard/adguardhome:latest
     volumes:
-      - adguardhome-work:/opt/adguardhome/work
-      - adguardhome-conf:/opt/adguardhome/conf
+      - /mnt/raid1/docker-volumes/adguardhome-work:/opt/adguardhome/work
+      - /mnt/raid1/docker-volumes/adguardhome-conf:/opt/adguardhome/conf
     restart: always
     ports:
       - target: 53
