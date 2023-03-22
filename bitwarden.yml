@@ -6,4 +6,6 @@ services:
       - /mnt/docker-volumes/vaultwarden-data:/data/
     restart: always
     ports:
-      - 480:80
+    - target: 80
+      published: 480
+      mode: host
