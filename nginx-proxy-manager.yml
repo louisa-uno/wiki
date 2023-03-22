@@ -4,9 +4,18 @@ services:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+    - target: 443
+      published: 443
+      protocol: tcp
+      mode: host
+    - target: 80
+      published: 80
+      protocol: tcp
+      mode: host
+    - target: 81
+      published: 81
+      protocol: tcp
+      mode: host
     volumes:
       - /mnt/docker-volumes/nginx-proxy-manager-data:/data
       - /mnt/docker-volumes/nginx-proxy-manager-letsencrypt:/etc/letsencrypt
