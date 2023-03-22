@@ -6,7 +6,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 48080:8080
+    - target: 8080
+      published: 48080
+      mode: host
     restart: unless-stopped
     environment:
       DOZZLE_LEVEL: trace
