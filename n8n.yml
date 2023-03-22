@@ -6,5 +6,8 @@ services:
     volumes:
       - /mnt/docker-volumes/n8n:/home/node/.n8n
     ports:
-      - 5678:5678
+    - target: 5678
+      published: 5678
+      protocol: tcp
+      mode: host
     restart: unless-stopped
