@@ -15,18 +15,54 @@ services:
         published: 53
         protocol: udp
         mode: host
-      - 67:67/udp
-      - 68:68/udp
-      - 280:80/tcp
-      - 2443:443/tcp
-      - 2443:443/udp
-      - 23000:3000/tcp
-      - 853:853/tcp
-      - 784:784/udp
-      - 853:853/udp
-      - 8853:8853/udp
-      - 5443:5443/tcp
-      - 5443:5443/udp
+      - target: 67
+        published: 67
+        protocol: udp
+        mode: host
+      - target: 68
+        published: 68
+        protocol: udp
+        mode: host
+      - target: 80
+        published: 280
+        protocol: tcp
+        mode: host
+      - target: 443
+        published: 2443
+        protocol: tcp
+        mode: host
+      - target: 443
+        published: 2443
+        protocol: udp
+        mode: host
+      - target: 3000
+        published: 23000
+        protocol: tcp
+        mode: host
+      - target: 853
+        published: 853
+        protocol: tcp
+        mode: host
+      - target: 784
+        published: 784
+        protocol: udp
+        mode: host
+      - target: 853
+        published: 853
+        protocol: udp
+        mode: host
+      - target: 8853
+        published: 8853
+        protocol: udp
+        mode: host
+      - target: 5443
+        published: 5443
+        protocol: tcp
+        mode: host
+      - target: 5443
+        published: 5443
+        protocol: udp
+        mode: host
     networks:
       - default
 networks:
