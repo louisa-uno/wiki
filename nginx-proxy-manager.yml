@@ -8,5 +8,5 @@ services:
       - '81:81'
       - '443:443'
     volumes:
-      - /mnt/raid1/docker/volumes/nginx-proxy-manager-data:/data
-      - /mnt/raid1/docker/volumes/nginx-proxy-manager-letsencrypt:/etc/letsencrypt
+      - /mnt/docker-volumes/nginx-proxy-manager-data:/data
+      - /mnt/docker-volumes/nginx-proxy-manager-letsencrypt:/etc/letsencrypt
