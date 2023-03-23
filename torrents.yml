@@ -226,3 +226,24 @@ services:
       protocol: tcp
       mode: host
     restart: unless-stopped
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    volumes:
+      - /mnt/docker-volumes/jellyfin-config:/config
+      - /mnt/docker-volumes/jellyfin-cache:/cache
+      - /mnt/nextcloud/louis/files/Medien:/media
+    ports:
+    - target: 8096
+      published: 8096
+      protocol: tcp
+      mode: host
+    - target: 1900
+      published: 11900
+      protocol: udp
+      mode: host
+    - target: 7359
+      published: 7359
+      protocol: udp
+      mode: host
+    restart: unless-stopped
