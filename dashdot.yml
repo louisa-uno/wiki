@@ -5,7 +5,9 @@ services:
     volumes:
       - /:/mnt/host:ro
     ports:
-      - 3301:3001
+    - target: 3001
+      published: 3301
+      mode: host
     restart: unless-stopped
     privileged: true
     environment:
@@ -14,5 +16,3 @@ services:
       - DASHDOT_ENABLE_STORAGE_SPLIT_VIEW=true
       - DASHDOT_USE_IMPERIAL=false
       - DASHDOT_ACCEPT_OOKLA_EULA=true
-      - DASHDOT_USE_NETWORK_INTERFACE=enp6s0
-      - DASHDOT_FS_VIRTUAL_MOUNTS=/mnt/raid1
