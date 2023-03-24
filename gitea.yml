@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  server:
+    image: gitea/gitea:latest
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - TZ=Europe/Berlin
+    restart: always
+    volumes:
+      - /mnt/gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+    - target: 3000
+      published: 3000
+      protocol: tcp
+      mode: host
+    - target: 22
+      published: 222
+      protocol: tcp
+      mode: host
