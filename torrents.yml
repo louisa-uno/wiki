@@ -32,6 +32,16 @@ services:
       - PUID=0
       - PGID=0
       - TZ=Europe/Berlin
+      - UMASK_SET=0777
+      - enableAutoConfig=true
+      - enableRecyclarr=true
+      - enableQueueCleaner=true
+      - enableExtras=true
+      - extrasType=all
+      - extrasLanguages=en-US,de-DE
+      - extrasOfficialOnly=true
+      - extrasSingle=false
+      - extrasKodiCompatibility=false
     volumes:
       - /mnt/docker-volumes/radarr-config:/config
       - /mnt/nextcloud/louis/files/Medien/Filme:/movies
