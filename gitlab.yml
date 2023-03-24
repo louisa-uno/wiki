@@ -7,10 +7,19 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.louis45.com'
     ports:
-      - 380:80
-      - 3443:443
-      - 322:22
+    - target: 80
+      published: 380
+      protocol: tcp
+      mode: host
+    - target: 443
+      published: 3443
+      protocol: tcp
+      mode: host
+    - target: 22
+      published: 322
+      protocol: tcp
+      mode: host
     volumes:
-      - /mnt/raid1/gitlab/etc:/etc/gitlab
-      - /mnt/raid1/gitlab/opt:/var/opt/gitlab
+      - /mnt/docker-volumes/gitlab-etc:/etc/gitlab
+      - /mnt/docker-volumes/gitlab-opt:/var/opt/gitlab
     shm_size: 256m
