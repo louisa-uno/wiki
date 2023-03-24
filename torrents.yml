@@ -175,12 +175,14 @@ services:
       - /mnt/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
     restart: unless-stopped
   readarr:
-    image: lscr.io/linuxserver/readarr:develop
+    image: randomninjaatk/readarr-extended:latest
     container_name: readarr
     environment:
       - PUID=0
       - PGID=0
       - TZ=Europe/Berlin
+      - enableAutoConfig=true
+      - enableQueueCleaner=true
     volumes:
       - /mnt/docker-volumes/readarr-config:/config
       - /mnt/nextcloud/louis/files/Medien/Bücher:/books
