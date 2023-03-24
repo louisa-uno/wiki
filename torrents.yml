@@ -269,3 +269,19 @@ services:
       protocol: udp
       mode: host
     restart: unless-stopped
+  kavita:
+    image: kizaing/kavita:latest
+    container_name: kavita
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Berlin
+    volumes:
+      - /mnt/docker-volumes/kativa-config:/kavita/config
+      - /mnt/nextcloud/louis/files/Medien/Bücher:/books
+    ports:
+    - target: 5000
+      published: 5000
+      protocol: tcp
+      mode: host
+    restart: unless-stopped
