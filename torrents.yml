@@ -22,7 +22,7 @@ services:
       mode: host
     restart: unless-stopped
   radarr:
-    image: lscr.io/linuxserver/radarr:latest
+    image: randomninjaatk/radarr-extended:latest
     container_name: radarr
     user: 0:0
     depends_on:
