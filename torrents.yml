@@ -1,16 +1,25 @@
 version: "3.7"
 services:
   sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
+    image: randomninjaatk/sonarr-extended:latest
     container_name: sonarr
     user: 0:0
     depends_on:
       - jackett
       - qbittorrent
     environment:
+      - enableAutoConfig=true
+      - enableRecyclarr=true
+      - enableQueueCleaner=true
+      - enableYoutubeSeriesDownloader=true
+      - enableExtras=true
+      - extrasType=all
+      - extrasLanguages=en-US,de-DE
+      - extrasOfficialOnly=false
       - PUID=0
       - PGID=0
       - TZ=Europe/Berlin
+      - UMASK_SET=0777
     volumes:
       - /mnt/docker-volumes/sonarr-config:/config
       - /mnt/nextcloud/louis/files/Medien/Serien:/tv
