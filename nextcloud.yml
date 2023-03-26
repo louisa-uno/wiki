@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  app:
+    image: nextcloud:latest
+    container_name: nextcloud-app
+    ports:
+    - target: 80
+      published: 980
+      protocol: tcp
+      mode: host
+    volumes:
+      - /mnt/docker-volumes/nextcloud-config:/var/www/html
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/nextcloud:/mnt/nextcloud
+      - type: tmpfs
+        target: /tmp
+    restart: unless-stopped
