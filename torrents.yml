@@ -172,6 +172,8 @@ services:
       - /mnt/docker-volumes/tdarr-temp:/temp
       - /mnt/nextcloud/louis/files/Medien/Filme:/home/Tdarr/Media/Movies
       - /mnt/nextcloud/louis/files/Medien/Serien:/home/Tdarr/Media/TVShows
+      - /mnt/nextcloud/louis/files/Fotos:/home/Tdarr/Media/Nextcloud/Fotos
+      - /mnt/nextcloud/louis/files/InstantUpload:/home/Tdarr/Media/Nextcloud/InstantUpload
       - /mnt/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
     restart: unless-stopped
   readarr:
