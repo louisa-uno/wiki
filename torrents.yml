@@ -1,21 +1,13 @@
 version: "3.7"
 services:
   sonarr:
-    image: randomninjaatk/sonarr-extended:latest
+    image: linuxserver/sonarr:latest
     container_name: sonarr
     user: 0:0
     depends_on:
       - jackett
       - qbittorrent
     environment:
-      - enableAutoConfig=true
-      - enableRecyclarr=true
-      - enableQueueCleaner=true
-      - enableYoutubeSeriesDownloader=true
-      - enableExtras=true
-      - extrasType=all
-      - extrasLanguages=en-US,de-DE
-      - extrasOfficialOnly=false
       - PUID=0
       - PGID=0
       - TZ=Europe/Berlin
@@ -31,7 +23,7 @@ services:
       mode: host
     restart: unless-stopped
   radarr:
-    image: randomninjaatk/radarr-extended:latest
+    image: linuxserver/radarr:latest
     container_name: radarr
     user: 0:0
     depends_on:
@@ -42,15 +34,6 @@ services:
       - PGID=0
       - TZ=Europe/Berlin
       - UMASK_SET=0777
-      - enableAutoConfig=true
-      - enableRecyclarr=true
-      - enableQueueCleaner=true
-      - enableExtras=true
-      - extrasType=all
-      - extrasLanguages=en-US,de-DE
-      - extrasOfficialOnly=true
-      - extrasSingle=false
-      - extrasKodiCompatibility=false
     volumes:
       - /mnt/docker-volumes/radarr-config:/config
       - /mnt/nextcloud/louis/files/Medien/Filme:/movies
@@ -177,14 +160,12 @@ services:
       - /mnt/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
     restart: unless-stopped
   readarr:
-    image: randomninjaatk/readarr-extended:latest
+    image: linuxserver/readarr:latest
     container_name: readarr
     environment:
       - PUID=0
       - PGID=0
       - TZ=Europe/Berlin
-      - enableAutoConfig=true
-      - enableQueueCleaner=true
     volumes:
       - /mnt/docker-volumes/readarr-config:/config
       - /mnt/nextcloud/louis/files/Medien/Bücher:/books
