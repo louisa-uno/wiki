@@ -160,7 +160,7 @@ services:
       - /mnt/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
     restart: unless-stopped
   readarr:
-    image: linuxserver/readarr:latest
+    image: linuxserver/readarr:develop
     container_name: readarr
     environment:
       - PUID=0
