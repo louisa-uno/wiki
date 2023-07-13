@@ -13,4 +13,3 @@ services:
       - TCD_ENABLE_FILES_API=0
       - TCD_EXPOSE_LOGS_TO_PUBLIC=0
       - TCD_MIGRATE_OLD_VOD_JSON=0
-      - BASE_URL=http://192.168.178.188
