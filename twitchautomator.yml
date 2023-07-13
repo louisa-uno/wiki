@@ -4,7 +4,10 @@ services:
     build: .
     image: mrbrax/twitchautomator:master
     ports:
-      - "8082:8080"
+    - target: 8080
+      published: 8082
+      protocol: tcp
+      mode: host
     volumes:
       - /mnt/docker-volumes/twitchautomator-data:/usr/local/share/twitchautomator/data
       - /mnt/nextcloud/louis/files/Medien/Twitchautomator:/data/storage
