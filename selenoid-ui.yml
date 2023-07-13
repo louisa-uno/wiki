@@ -4,7 +4,10 @@ services:
     image: aerokube/selenoid:latest-release
     network_mode: bridge
     ports:
-      - 4444:4444
+    - target: 4444
+      published: 4444
+      protocol: tcp
+      mode: host
     volumes:
       - /mnt/docker-volumes/selenoid-config:/etc/selenoid
       - /var/run/docker.sock:/var/run/docker.sock
@@ -18,4 +21,4 @@ services:
       published: 4445
       protocol: tcp
       mode: host
-    command: ["--selenoid-uri", "http://selenoid:4444"]
+    command: ["--selenoid-uri", "http://192.168.178.188:4444"]
