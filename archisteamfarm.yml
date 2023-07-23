@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  archisteamfarm:
+    image: justarchi/archisteamfarm
+    volumes:
+      - /mnt/docker-volumes/archisteamfarm-config:/app/config
+    restart: always
+    ports:
+    - target: 1242
+      published: 21242
+      mode: host
