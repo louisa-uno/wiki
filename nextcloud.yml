@@ -1,5 +1,16 @@
 version: "3.7"
 services:
+  db:
+    image: mariadb:10.6
+    restart: always
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    volumes:
+      - /mnt/docker-volumes/nextcloud-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=!!!CENSORED!!!
+      - MYSQL_PASSWORD=!!!CENSORED!!!
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
   app:
     image: nextcloud:latest
     container_name: nextcloud-app
@@ -15,3 +26,10 @@ services:
       - type: tmpfs
         target: /tmp
     restart: unless-stopped
+    links:
+      - db
+    environment:
+      - MYSQL_PASSWORD=!!!CENSORED!!!
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=db
