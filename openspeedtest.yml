@@ -4,5 +4,8 @@ services:
         restart: unless-stopped
         container_name: openspeedtest
         ports:
-            - '3000:3000'
+        - target: 3000
+          published: 3039
+          protocol: tcp
+          mode: host
         image: openspeedtest/latest
