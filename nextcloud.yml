@@ -16,7 +16,7 @@ services:
       - MYSQL_PASSWORD=!!!CENSORED!!!
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-  app:
+  nextcloud-app:
     image: nextcloud:latest
     container_name: nextcloud-app
     ports:
@@ -38,3 +38,23 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=192.168.178.188:3309
+  nextcloud-cron:
+    image: nextcloud:latest
+    container_name: nextcloud-cron
+    volumes:
+      - /mnt/docker-volumes/nextcloud-config:/var/www/html
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/nextcloud:/mnt/nextcloud
+      - type: tmpfs
+        target: /tmp
+    restart: unless-stopped
+    links:
+      - db
+    environment:
+      - MYSQL_PASSWORD=!!!CENSORED!!!
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=192.168.178.188:3309
+    entrypoint: /cron.sh
+    depends_on:
+      - nextcloud-app
