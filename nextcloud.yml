@@ -26,6 +26,7 @@ services:
       mode: host
     volumes:
       - /mnt/docker-volumes/nextcloud-config:/var/www/html
+      - /mnt/docker-volumes/nextcloud-cron/www-data:/var/spool/cron/crontabs/www-data
       - /etc/localtime:/etc/localtime:ro
       - /mnt/nextcloud:/mnt/nextcloud
       - type: tmpfs
@@ -43,6 +44,7 @@ services:
     container_name: nextcloud-cron
     volumes:
       - /mnt/docker-volumes/nextcloud-config:/var/www/html
+      - /mnt/docker-volumes/nextcloud-cron/www-data:/var/spool/cron/crontabs/www-data
       - /etc/localtime:/etc/localtime:ro
       - /mnt/nextcloud:/mnt/nextcloud
       - type: tmpfs
