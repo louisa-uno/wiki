@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+  roundcube-db:
+    image: mysql:5.7
+    restart: unless-stopped
+    volumes:
+      - /mnt/docker-volumes/roundcube-db:/var/lib/mysql
+    ports:
+    - target: 3306
+      published: 33006
+      protocol: tcp
+      mode: host
+    environment:
+      - MYSQL_ROOT_PASSWORD=!!!CENSORED!!!
+      - MYSQL_DATABASE=roundcubemail
+  roundcube-mail:
+    image: roundcube/roundcubemail:latest
+    restart: unless-stopped
+    depends_on:
+      - roundcube-db
+    volumes:
+      - /mnt/docker-volumes/roundcube-mail:/var/www/html
+    ports:
+    - target: 80
+      published: 9001
+      protocol: tcp
+      mode: host
+    environment:
+      - ROUNDCUBEMAIL_DB_TYPE=mysql
+      - ROUNDCUBEMAIL_DB_HOST=192.168.178.188
+      - ROUNDCUBEMAIL_DB_PORT=33006
+      - ROUNDCUBEMAIL_DB_PASSWORD=!!!CENSORED!!!
+      - ROUNDCUBEMAIL_SKIN=elastic
+      - ROUNDCUBEMAIL_DEFAULT_HOST=ssl://imappro.zoho.eu
+      - ROUNDCUBEMAIL_DEFAULT_PORT=993
+      - ROUNDCUBEMAIL_SMTP_SERVER=ssl://smtp.zoho.eu
+      - ROUNDCUBEMAIL_SMTP_PORT=465
