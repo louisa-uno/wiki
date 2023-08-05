@@ -39,6 +39,8 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=192.168.178.188:3309
+      - PHP_MEMORY_LIMIT=1024M
+      - PHP_UPLOAD_LIMIT=102400M
   nextcloud-cron:
     image: nextcloud:latest
     container_name: nextcloud-cron
