@@ -63,5 +63,3 @@ services:
         published: 5443
         protocol: udp
         mode: host
-    networks:
-      - default
