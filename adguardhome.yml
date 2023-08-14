@@ -65,7 +65,3 @@ services:
         mode: host
     networks:
       - default
-networks:
-  default:
-    driver: overlay
-    attachable: true
