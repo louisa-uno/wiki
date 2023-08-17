@@ -9,8 +9,18 @@ services:
     ports:
     - target: 5005
       published: 5005
-      protocol: tcp
       mode: host
     environment:
       - PASSWORD=!!!CENSORED!!!
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.flame-secure.rule=Host(`flame.louis45.de`)"
+      - "traefik.http.routers.flame-secure.entrypoints=websecure"
+      - "traefik.http.routers.flame-secure.tls=true"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
