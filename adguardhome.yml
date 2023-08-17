@@ -9,7 +9,6 @@ services:
     ports:
       - target: 53
         published: 53
-        protocol: tcp
         mode: host
       - target: 53
         published: 53
@@ -25,11 +24,9 @@ services:
         mode: host
       - target: 80
         published: 280
-        protocol: tcp
         mode: host
       - target: 443
         published: 2443
-        protocol: tcp
         mode: host
       - target: 443
         published: 2443
@@ -37,11 +34,9 @@ services:
         mode: host
       - target: 3000
         published: 23000
-        protocol: tcp
         mode: host
       - target: 853
         published: 853
-        protocol: tcp
         mode: host
       - target: 784
         published: 784
@@ -57,15 +52,20 @@ services:
         mode: host
       - target: 5443
         published: 5443
-        protocol: tcp
         mode: host
       - target: 5443
         published: 5443
         protocol: udp
         mode: host
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.adguard-secure.rule=Host(`adguard.louis45.de`)"
+      - "traefik.http.routers.adguard-secure.entrypoints=websecure"
+      - "traefik.http.routers.adguard-secure.tls=true"
+      - "traefik.http.services.adguard-secure.loadbalancer.server.port=80"
     networks:
-      - default
+      - traefik-public
 networks:
-  default:
-    driver: overlay
-    attachable: true
+  traefik-public:
+    external: true
