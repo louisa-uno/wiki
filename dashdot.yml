@@ -16,3 +16,14 @@ services:
       - DASHDOT_ENABLE_STORAGE_SPLIT_VIEW=true
       - DASHDOT_USE_IMPERIAL=false
       - DASHDOT_ACCEPT_OOKLA_EULA=true
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.dashdot.rule=Host(`dashdot.louis45.de`)"
+      - "traefik.http.routers.dashdot.entrypoints=websecure"
+      - "traefik.http.routers.dashdot.tls=true"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
