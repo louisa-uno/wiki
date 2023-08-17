@@ -7,7 +7,6 @@ services:
     ports:
     - target: 3306
       published: 3309
-      protocol: tcp
       mode: host
     volumes:
       - /mnt/docker-volumes/nextcloud-db:/var/lib/mysql
@@ -17,12 +16,11 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
   nextcloud-app:
-    image: nextcloud:latest
+    image: nextcloud
     container_name: nextcloud-app
     ports:
     - target: 80
       published: 980
-      protocol: tcp
       mode: host
     volumes:
       - /mnt/docker-volumes/nextcloud-config:/var/www/html
@@ -41,8 +39,16 @@ services:
       - MYSQL_HOST=192.168.178.188:3309
       - PHP_MEMORY_LIMIT=1024M
       - PHP_UPLOAD_LIMIT=102400M
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.nextcloud-secure.rule=Host(`nextcloud.louis45.de`)"
+      - "traefik.http.routers.nextcloud-secure.entrypoints=websecure"
+      - "traefik.http.routers.nextcloud-secure.tls=true"
+    networks:
+      - traefik-public
   nextcloud-cron:
-    image: nextcloud:latest
+    image: nextcloud
     container_name: nextcloud-cron
     volumes:
       - /mnt/docker-volumes/nextcloud-config:/var/www/html
@@ -62,3 +68,6 @@ services:
     entrypoint: /cron.sh
     depends_on:
       - nextcloud-app
+networks:
+  traefik-public:
+    external: true
