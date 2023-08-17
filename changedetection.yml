@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+    changedetection:
+      image: ghcr.io/dgtlmoon/changedetection.io
+      container_name: changedetection
+      hostname: changedetection
+      volumes:
+        - /mnt/docker-volumes/changedetection-data:/datastore
+      ports:
+      - target: 5000
+        published: 5096
+        protocol: tcp
+        mode: host
+      restart: unless-stopped
