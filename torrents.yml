@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   sonarr:
-    image: linuxserver/sonarr:latest
+    image: linuxserver/sonarr
     container_name: sonarr
     user: 0:0
     depends_on:
@@ -19,11 +19,10 @@ services:
     ports:
     - target: 8989
       published: 8989
-      protocol: tcp
       mode: host
     restart: unless-stopped
   radarr:
-    image: linuxserver/radarr:latest
+    image: linuxserver/radarr
     container_name: radarr
     user: 0:0
     depends_on:
@@ -41,11 +40,10 @@ services:
     ports:
     - target: 7878
       published: 7878
-      protocol: tcp
       mode: host
     restart: unless-stopped
   jackett:
-    image: lscr.io/linuxserver/jackett:latest
+    image: lscr.io/linuxserver/jackett
     container_name: jackett
     environment:
       - PUID=1000
@@ -58,11 +56,10 @@ services:
     ports:
     - target: 9117
       published: 9117
-      protocol: tcp
       mode: host
     restart: unless-stopped
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
+    image: lscr.io/linuxserver/qbittorrent
     container_name: qbittorrent
     environment:
       - PUID=1000
@@ -75,11 +72,9 @@ services:
     ports:
     - target: 8080
       published: 8080
-      protocol: tcp
       mode: host
     - target: 6881
       published: 6881
-      protocol: tcp
       mode: host
     - target: 6881
       published: 6881
@@ -87,7 +82,7 @@ services:
       mode: host
     restart: unless-stopped
   jellyseerr:
-    image: fallenbagel/jellyseerr:latest
+    image: fallenbagel/jellyseerr
     container_name: jellyseerr
     depends_on:
       - sonarr
@@ -99,13 +94,20 @@ services:
     ports:
     - target: 5055
       published: 5055
-      protocol: tcp
       mode: host
     volumes:
       - /mnt/docker-volumes/jellyseerr-config:/app/config
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.louis45.de`)"
+      - "traefik.http.routers.jellyseerr.entrypoints=websecure"
+      - "traefik.http.routers.jellyseerr.tls=true"
+    networks:
+      - traefik-public
   bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
+    image: lscr.io/linuxserver/bazarr
     container_name: bazarr
     environment:
       - PUID=0
@@ -118,24 +120,20 @@ services:
     ports:
     - target: 6767
       published: 6767
-      protocol: tcp
       mode: host
     restart: unless-stopped
   tdarr:
     container_name: tdarr
-    image: ghcr.io/haveagitgat/tdarr:latest
+    image: ghcr.io/haveagitgat/tdarr
     ports:
     - target: 8265
       published: 8265
-      protocol: tcp
       mode: host
     - target: 8266
       published: 8266
-      protocol: tcp
       mode: host
     - target: 8267
       published: 8267
-      protocol: tcp
       mode: host
     environment:
       - PUID=0
@@ -174,11 +172,10 @@ services:
     ports:
     - target: 8787
       published: 8787
-      protocol: tcp
       mode: host
     restart: unless-stopped
   plex:
-    image: lscr.io/linuxserver/plex:latest
+    image: lscr.io/linuxserver/plex
     container_name: plex
     environment:
       - PUID=0
@@ -192,7 +189,6 @@ services:
     ports:
     - target: 32400
       published: 32400
-      protocol: tcp
       mode: host
     - target: 1900
       published: 1900
@@ -200,7 +196,6 @@ services:
       mode: host
     - target: 3005
       published: 3005
-      protocol: tcp
       mode: host
     - target: 5353
       published: 5353
@@ -208,7 +203,6 @@ services:
       mode: host
     - target: 8324
       published: 8324
-      protocol: tcp
       mode: host
     - target: 32410
       published: 32410
@@ -228,9 +222,17 @@ services:
       mode: host
     - target: 32469
       published: 32469
-      protocol: tcp
       mode: host
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.plex.rule=Host(`plex.louis45.de`)"
+      - "traefik.http.routers.plex.entrypoints=websecure"
+      - "traefik.http.routers.plex.tls=true"
+      - "traefik.http.services.plex.loadbalancer.server.port=32400"
+    networks:
+      - traefik-public
   jellyfin:
     image: jellyfin/jellyfin
     container_name: jellyfin
@@ -241,7 +243,6 @@ services:
     ports:
     - target: 8096
       published: 8096
-      protocol: tcp
       mode: host
     - target: 1900
       published: 11900
@@ -252,8 +253,17 @@ services:
       protocol: udp
       mode: host
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.louis45.de`)"
+      - "traefik.http.routers.jellyfin.entrypoints=websecure"
+      - "traefik.http.routers.jellyfin.tls=true"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
+    networks:
+      - traefik-public
   kavita:
-    image: kizaing/kavita:latest
+    image: kizaing/kavita
     container_name: kavita
     environment:
       - PUID=0
@@ -265,6 +275,8 @@ services:
     ports:
     - target: 5000
       published: 5000
-      protocol: tcp
       mode: host
     restart: unless-stopped
+networks:
+  traefik-public:
+    external: true
