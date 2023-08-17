@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  dashdot:
+  dozzle:
     image: amir20/dozzle
     container_name: dozzle
     volumes:
@@ -21,3 +21,14 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.dozzle-secure.rule=Host(`dozzle.louis45.de`)"
+      - "traefik.http.routers.dozzle-secure.entrypoints=websecure"
+      - "traefik.http.routers.dozzle-secure.tls=true"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
