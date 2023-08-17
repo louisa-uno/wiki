@@ -1,11 +1,21 @@
-version: '3.3'
+version: '3.7'
 services:
-    speedtest:
-        restart: unless-stopped
-        container_name: openspeedtest
-        ports:
-        - target: 3000
-          published: 3039
-          protocol: tcp
-          mode: host
-        image: openspeedtest/latest
+  speedtest:
+    restart: unless-stopped
+    container_name: openspeedtest
+    ports:
+      - target: 3000
+        published: 3039
+        mode: host
+    image: openspeedtest/latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.openspeedtest.rule=Host(`openspeedtest.louis45.de`)"
+      - "traefik.http.routers.openspeedtest.entrypoints=websecure"
+      - "traefik.http.routers.openspeedtest.tls=true"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
