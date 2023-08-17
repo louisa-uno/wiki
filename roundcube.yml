@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  roundcube-db:
+  db:
     image: mysql:5.7
     restart: unless-stopped
     volumes:
@@ -8,12 +8,11 @@ services:
     ports:
     - target: 3306
       published: 33006
-      protocol: tcp
       mode: host
     environment:
       - MYSQL_ROOT_PASSWORD=!!!CENSORED!!!
       - MYSQL_DATABASE=roundcubemail
-  roundcube-mail:
+  roundcube:
     image: roundcube/roundcubemail:latest
     restart: unless-stopped
     depends_on:
@@ -23,7 +22,6 @@ services:
     ports:
     - target: 80
       published: 9001
-      protocol: tcp
       mode: host
     environment:
       - ROUNDCUBEMAIL_DB_TYPE=mysql
@@ -35,3 +33,14 @@ services:
       - ROUNDCUBEMAIL_DEFAULT_PORT=993
       - ROUNDCUBEMAIL_SMTP_SERVER=ssl://smtp.zoho.eu
       - ROUNDCUBEMAIL_SMTP_PORT=465
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.roundcube.rule=Host(`roundcube.louis45.de`)"
+      - "traefik.http.routers.roundcube.entrypoints=websecure"
+      - "traefik.http.routers.roundcube.tls=true"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
