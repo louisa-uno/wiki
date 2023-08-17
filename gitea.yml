@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  server:
+  gitea:
     image: gitea/gitea:latest
     container_name: gitea
     environment:
@@ -15,9 +15,19 @@ services:
     ports:
     - target: 3000
       published: 3000
-      protocol: tcp
       mode: host
     - target: 22
       published: 222
-      protocol: tcp
       mode: host
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.gitea.rule=Host(`gitea.louis45.de`)"
+      - "traefik.http.routers.gitea.entrypoints=websecure"
+      - "traefik.http.routers.gitea.tls=true"
+      - "traefik.http.services.gitea.loadbalancer.server.port=3000"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
