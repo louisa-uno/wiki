@@ -1,0 +1,84 @@
+version: '3.7'
+services:
+  api:
+    image: vrcdb-api
+    volumes:
+      - /mnt/nextcloud/louis/files/vrcdb-api:/vrcdb-api
+    ports:
+    - target: 3000
+      published: 3810
+      mode: host
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.ripper-secure.rule=Host(`ripper.louis45.de`)"
+      - "traefik.http.routers.ripper-secure.entrypoints=websecure"
+      - "traefik.http.routers.ripper-secure.tls=true"
+    networks:
+      - traefik-public
+  db:
+    image: mariadb:10.6
+    restart: always
+    ports:
+    - target: 3306
+      published: 3308
+      mode: host
+    volumes:
+      - /mnt/docker-volumes/vrcdb-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=!!!CENSORED!!!
+      - MYSQL_PASSWORD=!!!CENSORED!!!
+      - MYSQL_DATABASE=vrchat
+      - MYSQL_USER=api
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+    - target: 80
+      published: 8088
+      mode: host
+    environment:
+      - PMA_HOST=192.168.178.188
+      - PMA_PORT=3308
+      - PMA_USER=root
+      - PMA_PASSWORD=!!!CENSORED!!!
+      - PMA_ARBITRARY=1
+    depends_on:
+      - db
+    restart: unless-stopped
+  metabase:
+    image: metabase/metabase
+    ports:
+    - target: 3000
+      published: 3812
+      mode: host
+    volumes:
+      - /mnt/docker-volumes/vrcdb-metabase:/metabase-data
+    environment:
+      - MB_DB_TYPE=mysql
+      - MB_DB_HOST=192.168.178.188
+      - MB_DB_PORT=3308
+      - MB_DB_DBNAME=metabase
+      - MB_DB_USER=metabase
+      - MB_DB_PASS=!!!CENSORED!!!
+      - MB_SITE_URL=https://metabase.louis45.de
+    depends_on:
+      - db
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.metabase-secure.rule=Host(`metabase.louis45.de`)"
+      - "traefik.http.routers.metabase-secure.entrypoints=websecure"
+      - "traefik.http.routers.metabase-secure.tls=true"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
