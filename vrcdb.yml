@@ -36,8 +36,8 @@ services:
     volumes:
       - /mnt/docker-volumes/vrcdb-db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=gSjKXYCjiDQFeF5vSiVbWxL2bNhceKb3
-      - MYSQL_PASSWORD=PG8hfY7DWUqCTYWfY8uDRieVmd48yPmC
+      - MYSQL_ROOT_PASSWORD=!!!CENSORED!!!
+      - MYSQL_PASSWORD=!!!CENSORED!!!
       - MYSQL_DATABASE=vrchat
       - MYSQL_USER=api
   phpmyadmin:
@@ -50,7 +50,7 @@ services:
       - PMA_HOST=192.168.178.188
       - PMA_PORT=3308
       - PMA_USER=root
-      - PMA_PASSWORD=gSjKXYCjiDQFeF5vSiVbWxL2bNhceKb3
+      - PMA_PASSWORD=!!!CENSORED!!!
       - PMA_ARBITRARY=1
     depends_on:
       - db
@@ -69,7 +69,7 @@ services:
       - MB_DB_PORT=3308
       - MB_DB_DBNAME=metabase
       - MB_DB_USER=metabase
-      - MB_DB_PASS=AYghjAmVTpXjmCVCa6oqeZ7oJsdf7inv
+      - MB_DB_PASS=!!!CENSORED!!!
       - MB_SITE_URL=https://metabase.louis45.de
     depends_on:
       - db
