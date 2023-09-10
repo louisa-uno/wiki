@@ -12,3 +12,7 @@ services:
         protocol: tcp
         mode: host
       restart: unless-stopped
+    browser-chrome:
+        hostname: browser-chrome
+        image: selenium/standalone-chrome-debug:3.141.59
+        restart: unless-stopped
