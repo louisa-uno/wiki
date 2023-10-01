@@ -37,7 +37,7 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=192.168.178.188:3309
-      - PHP_MEMORY_LIMIT=1024M
+      - PHP_MEMORY_LIMIT=4096M
       - PHP_UPLOAD_LIMIT=102400M
     labels:
       - "traefik.enable=true"
