@@ -143,7 +143,7 @@ services:
       - /mnt/docker-volumes/tdarr-configs:/app/configs
       - /mnt/docker-volumes/tdarr-logs:/app/logs
       - /mnt/docker-volumes/tdarr-media:/media
-      - /mnt/docker-volumes/tdarr-temp:/temp
+      - /tdarr-temp:/temp
       - /mnt/nextcloud/louis/files/Medien/Filme:/home/Tdarr/Media/Movies
       - /mnt/nextcloud/louis/files/Medien/Serien:/home/Tdarr/Media/TVShows
       - /mnt/nextcloud/louis/files/Fotos:/home/Tdarr/Media/Nextcloud/Fotos
