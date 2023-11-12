@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 services:
   sonarr:
     image: linuxserver/sonarr
@@ -150,15 +150,12 @@ services:
       - /mnt/nextcloud/louis/files/InstantUpload:/home/Tdarr/Media/Nextcloud/InstantUpload
       - /mnt/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
     restart: unless-stopped
+    runtime: nvidia
     deploy:
-      placement:
-        constraints:
-          - node.labels.nvidia_gpu == true
       resources:
         reservations:
           devices:
-            - driver: nvidia
-              capabilities: [gpu]
+            - capabilities: [gpu]
   readarr:
     image: linuxserver/readarr:develop
     container_name: readarr
@@ -255,15 +252,12 @@ services:
       protocol: udp
       mode: host
     restart: unless-stopped
+    runtime: nvidia
     deploy:
-      placement:
-        constraints:
-          - node.labels.nvidia_gpu == true
       resources:
         reservations:
           devices:
-            - driver: nvidia
-              capabilities: [gpu]
+            - capabilities: [gpu]
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
