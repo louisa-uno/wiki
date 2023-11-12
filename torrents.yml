@@ -150,13 +150,6 @@ services:
       - /mnt/nextcloud/louis/files/InstantUpload:/home/Tdarr/Media/Nextcloud/InstantUpload
       - /mnt/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
   readarr:
     image: linuxserver/readarr:develop
     container_name: readarr
@@ -253,13 +246,6 @@ services:
       protocol: udp
       mode: host
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
@@ -287,3 +273,10 @@ services:
 networks:
   traefik-public:
     external: true
+deploy:
+  resources:
+    reservations:
+      devices:
+        - driver: nvidia
+          count: 1
+          capabilities: [gpu]
