@@ -9,7 +9,7 @@ services:
         max_attempts: 0
     volumes:
       # Replace the first path with your path to the activated_packages.txt & config.json file
-      - /mnt/docker-volumes/claim-free-steam-packages/activated_packages.txt:/usr/src/app/acitvated_packages.txt
+      - /mnt/docker-volumes/claim-free-steam-packages/activated_packages.txt:/usr/src/app/activated_packages.txt
       - /mnt/docker-volumes/claim-free-steam-packages/config.json:/usr/src/app/config.json
       # Comment the following line if you don't want the logs in your directory
       - /mnt/docker-volumes/claim-free-steam-packages/logging.txt:/usr/src/app/logging.txt
