@@ -23,7 +23,7 @@ services:
       mode: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /mnt/docker-volumes/traefik-certs/live/louis45.de:/certs
+      - /mnt/docker-volumes/traefik-certs:/certs
     restart: unless-stopped
     networks:
       - traefik-public
