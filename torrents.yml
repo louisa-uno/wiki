@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3.7"
 services:
   sonarr:
     image: linuxserver/sonarr
@@ -140,13 +140,6 @@ services:
       - nodeID=InternalNode
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            count: all
-            capabilities: [gpu]
     volumes:
       - /mnt/docker-volumes/tdarr-server:/app/server
       - /mnt/docker-volumes/tdarr-configs:/app/configs
