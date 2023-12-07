@@ -138,6 +138,14 @@ services:
       - webUIPort=8265
       - internalNode=true
       - nodeID=InternalNode
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
     volumes:
       - /mnt/docker-volumes/tdarr-server:/app/server
       - /mnt/docker-volumes/tdarr-configs:/app/configs
