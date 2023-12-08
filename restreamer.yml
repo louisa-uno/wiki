@@ -30,7 +30,7 @@ services:
       - "traefik.http.routers.adguard-secure.rule=Host(`restreamer.louis45.de`)"
       - "traefik.http.routers.adguard-secure.entrypoints=websecure"
       - "traefik.http.routers.adguard-secure.tls=true"
-      - "traefik.http.services.adguard-secure.loadbalancer.server.port=8080"
+      - "traefik.http.services.adguard-secure.loadbalancer.server.port=7080"
     networks:
       - traefik-public
 networks:
