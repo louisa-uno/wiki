@@ -24,3 +24,15 @@ services:
       published: 6000
       protocol: udp
       mode: host
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.adguard-secure.rule=Host(`restreamer.louis45.de`)"
+      - "traefik.http.routers.adguard-secure.entrypoints=websecure"
+      - "traefik.http.routers.adguard-secure.tls=true"
+      - "traefik.http.services.adguard-secure.loadbalancer.server.port=8080"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
