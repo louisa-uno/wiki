@@ -1,12 +1,113 @@
+# Template used: https://github.com/aneisch/home-assistant-config/blob/master/extras/docker-compose/unified/docker-compose.yml
 version: '3.7'
 services:
-  homeassistant:
-    container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:stable
-    volumes:
-      - /mnt/docker-volumes/homeassistant-config:/config
-      - /etc/localtime:/etc/localtime:ro
-      - /run/dbus:/run/dbus:ro
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
+    homeassistant:
+        container_name: hass
+        image: ghcr.io/home-assistant/home-assistant:stable
+        volumes:
+          - /mnt/docker-volumes/homeassistant-config:/config
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /etc/localtime:/etc/localtime:ro
+        # devices:
+        #   - /dev/zigbee
+        environment:
+          - TZ=Europe/Berlin
+        healthcheck:
+          test: 'curl -m 90 -sLf http://localhost:8123 || date >> /config/healthcheck' #| pkill -9 python3'
+          interval: 90s
+          timeout: 60s
+          retries: 2
+        ports:
+        - target: 8123
+          published: 8123
+          mode: host
+        restart: always
+    mariadb:
+        container_name: mariadb
+        image: mariadb:10.6
+        user: 0:0
+        volumes:
+          - /mnt/docker-volumes/homeassistant-mariadb:/var/lib/mysql
+        environment:
+          - MYSQL_ROOT_PASSWORD=!!!CENSORED!!!
+          - MYSQL_PASSWORD=!!!CENSORED!!!
+          - MYSQL_DATABASE=homeassistant
+          - MYSQL_USER=homeassistant
+          - TZ=Europe/Berlin
+        ports:
+        - target: 3306
+          published: 3366
+          mode: host
+        restart: always
+    mosquitto:
+        container_name: mosquitto
+        image: eclipse-mosquitto:latest
+        user: 0:0
+        environment:
+            - TZ=Europe/Berlin
+        volumes:
+            - /mnt/docker-volumes/mosquitto-config:/mosquitto/config
+            - /mnt/docker-volumes/mosquitto-log:/mosquitto/log
+            - /mnt/docker-volumes/mosquitto-data:/mosquitto/data
+        healthcheck:
+            test: "mosquitto_sub -E -t '#'"
+            interval: 60s
+            timeout: 10s
+            retries: 5
+        ports:
+        - target: 1883
+          published: 1883
+          mode: host
+        - target: 8883
+          published: 8883
+          mode: host
+        restart: always
+    esphome:
+        container_name: esphome
+        # This is a custom build for now. Based on https://github.com/esphome/esphome/pull/671
+        #image: esphome-dev
+        #image: esphome/esphome:2021.10.3
+        image: esphome/esphome
+        environment:
+            - TZ=Europe/Berlin
+        volumes:
+            - /mnt/docker-volumes/esphome-data:/config
+            - /etc/localtime:/etc/localtime:ro
+        ports:
+        - target: 6052
+          published: 6052
+          mode: host
+        restart: unless-stopped
+    macos:
+        container_name: macos
+        image: sickcodes/docker-osx:naked
+        user: 0:0
+        environment:
+            - DISPLAY=${DISPLAY:-:0.0}
+            - GENERATE_SPECIFIC=true
+            - GENERATE_UNIQUE=true
+            - DEVICE_MODEL=iMacPro1,1
+            - EXTRA=-display none -vnc 0.0.0.0:99,password-secret=secvnc0 -object secret,id=secvnc0,data=vncpass
+            - TZ=Europe/Berlin
+        volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix
+            - /mnt/docker-volumes/macos-image:/image
+        ports:
+        - target: 10022
+          published: 50922
+          mode: host
+        - target: 5999 # VNC
+          published: 5999
+          mode: host
+        restart: always
+    codeproject:
+        container_name: codeproject
+        image: codeproject/ai-server
+        volumes:
+            - /mnt/docker-volumes/codeproject-config:/etc/codeproject/ai
+            - /mnt/docker-volumes/codeproject-modules:/app/preinstalled-modules/ObjectDetectionYolo/custom-models/
+        ports:
+        - target: 32168
+          published: 32168
+          mode: host
+        restart: always
