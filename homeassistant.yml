@@ -29,8 +29,8 @@ services:
         volumes:
           - /mnt/docker-volumes/homeassistant-mariadb:/var/lib/mysql
         environment:
-          - MYSQL_ROOT_PASSWORD=QMYHoz3UFDPC8qQ39XCXPuaWRcDZgDsv
-          - MYSQL_PASSWORD=tt3t76XWdCUQGaKQZosuq23RWFST6UC9
+          - MYSQL_ROOT_PASSWORD=!!!CENSORED!!!
+          - MYSQL_PASSWORD=!!!CENSORED!!!
           - MYSQL_DATABASE=homeassistant
           - MYSQL_USER=homeassistant
           - TZ=Europe/Berlin
