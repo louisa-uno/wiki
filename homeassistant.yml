@@ -26,14 +26,20 @@ services:
         container_name: mariadb
         image: mariadb:10.6
         user: 0:0
-        volumes:
-          - /mnt/docker-volumes/homeassistant-mariadb:/var/lib/mysql
         environment:
           - MYSQL_ROOT_PASSWORD=!!!CENSORED!!!
           - MYSQL_PASSWORD=!!!CENSORED!!!
           - MYSQL_DATABASE=homeassistant
           - MYSQL_USER=homeassistant
           - TZ=Europe/Berlin
+        volumes:
+          - /mnt/docker-volumes/homeassistant-mariadb:/var/lib/mysql
+        healthcheck:
+          test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
+          start_period: 1m
+          interval: 1m
+          timeout: 5s
+          retries: 3
         ports:
         - target: 3306
           published: 3366
