@@ -95,3 +95,13 @@ services:
           published: 32168
           mode: host
         restart: always
+    cupholder:
+        container_name: cupholder
+        image: luois45/cupholder
+        devices:
+            - /dev/cdrom:/dev/cdrom
+        ports:
+        - target: 3280
+          published: 3280
+          mode: host
+        restart: unless-stopped
