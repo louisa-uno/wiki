@@ -15,6 +15,12 @@ services:
       - MYSQL_PASSWORD=!!!CENSORED!!!
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
+      start_period: 1m
+      interval: 1m
+      timeout: 5s
+      retries: 3 
   nextcloud-app:
     image: nextcloud
     container_name: nextcloud-app
