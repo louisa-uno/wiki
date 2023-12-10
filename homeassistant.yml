@@ -84,29 +84,6 @@ services:
           published: 6052
           mode: host
         restart: unless-stopped
-    macos:
-        container_name: macos
-        image: sickcodes/docker-osx:latest
-        user: 0:0
-        environment:
-            - DISPLAY=${DISPLAY:-:0.0}
-            - GENERATE_SPECIFIC=true
-            - GENERATE_UNIQUE=true
-            - DEVICE_MODEL=iMacPro1,1
-            - EXTRA=-display none -vnc 0.0.0.0:99,password-secret=secvnc0 -object secret,id=secvnc0,data=vncpass
-            - TZ=Europe/Berlin
-        volumes:
-            - /tmp/.X11-unix:/tmp/.X11-unix
-        devices:
-            - /dev/kvm
-        ports:
-        - target: 10022
-          published: 50922
-          mode: host
-        - target: 5999 # VNC
-          published: 5999
-          mode: host
-        restart: always
     codeproject:
         container_name: codeproject
         image: codeproject/ai-server
