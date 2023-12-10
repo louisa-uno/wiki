@@ -91,7 +91,6 @@ services:
             - TZ=Europe/Berlin
         volumes:
             - /tmp/.X11-unix:/tmp/.X11-unix
-            - /mnt/docker-volumes/macos-image:/image
         devices:
             - /dev/kvm
         ports:
