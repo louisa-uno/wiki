@@ -114,6 +114,16 @@ services:
           published: 3280
           mode: host
         restart: unless-stopped
+    openwakeword:
+        container_name: openwakeword
+        image: rhasspy/wyoming-openwakeword
+        environment:
+            - preload-model=ok_nabu
+        ports:
+        - target: 10400
+          published: 10400
+          mode: host
+        restart: unless-stopped
 networks:
   traefik-public:
     external: true
