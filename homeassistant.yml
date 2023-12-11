@@ -22,6 +22,15 @@ services:
           published: 8123
           mode: host
         restart: always
+        labels:
+          - "traefik.enable=true"
+          - "traefik.docker.network=traefik-public"
+          - "traefik.http.routers.homeassistant-secure.rule=Host(`homeassistant.louis45.de`)"
+          - "traefik.http.routers.homeassistant-secure.entrypoints=websecure"
+          - "traefik.http.routers.homeassistant-secure.tls=true"
+        networks:
+          - traefik-public
+
     mariadb:
         container_name: mariadb
         image: mariadb:10.6
@@ -105,3 +114,6 @@ services:
           published: 3280
           mode: host
         restart: unless-stopped
+networks:
+  traefik-public:
+    external: true
