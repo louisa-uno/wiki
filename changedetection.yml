@@ -11,8 +11,19 @@ services:
         published: 5096
         protocol: tcp
         mode: host
-      restart: unless-stopped
+      restart: unless-stopped        
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=changedetection-public"
+        - "traefik.http.routers.changedetection-secure.rule=Host(`changedetection.louis45.de`)"
+        - "traefik.http.routers.changedetection-secure.entrypoints=websecure"
+        - "traefik.http.routers.changedetection-secure.tls=true"
+      networks:
+        - traefik-public
     browser-chrome:
         hostname: browser-chrome
         image: selenium/standalone-chrome-debug:3.141.59
         restart: unless-stopped
+networks:
+  traefik-public:
+    external: true
