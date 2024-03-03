@@ -25,7 +25,7 @@ services:
       mode: host
     environment:
       - ROUNDCUBEMAIL_DB_TYPE=mysql
-      - ROUNDCUBEMAIL_DB_HOST=192.168.178.188
+      - ROUNDCUBEMAIL_DB_HOST=192.168.1.188
       - ROUNDCUBEMAIL_DB_PORT=33006
       - ROUNDCUBEMAIL_DB_PASSWORD=!!!CENSORED!!!
       - ROUNDCUBEMAIL_SKIN=elastic
