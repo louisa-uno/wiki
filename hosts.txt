@@ -1,0 +1,44 @@
+# A DNS Rewritelist for my local network
+#
+# Project home page:
+# https://github.com/Luois45/wiki
+#
+# Fetch the latest version of this file:
+# https://raw.githubusercontent.com/Luois45/wiki/master/hosts.txt
+#
+
+# *.local rewrites
+192.168.1.187 proxmox.local
+192.168.1.188 docker.local
+192.168.1.235 octoprint.local
+192.168.1.70  zigbee2mqtt.local
+192.168.1.164 opnsense.local
+192.168.1.1   openwrt.local
+192.168.1.178 pc.local
+
+# .louis45.de rewrites
+octoprint.local octoprint.louis45.de
+zigbee2mqtt.local zigbee2mqtt.louis45.de
+opnsense.local opnsense.louis45.de
+openwrt.local openwrt.louis45.de
+
+# docker.local > .louis45.de rewrites
+docker.local nextcloud.louis45.de
+docker.local adguard.louis45.de
+docker.local dashdot.louis45.de
+docker.local dozzle.louis45.de
+docker.local flame.louis45.de
+docker.local gitea.louis45.de
+docker.local jellyseerr.louis45.de
+docker.local plex.louis45.de
+docker.local ripper.louis45.de
+docker.local roundcube.louis45.de
+docker.local uptime-kuma.louis45.de
+docker.local jellyfin.louis45.de
+docker.local openspeedtest.louis45.de
+docker.local restreamer.louis45.de
+docker.local homeassistant.louis45.de
+docker.local changedetection.louis45.de
+docker.local phpmyadmin.louis45.de
+docker.local jellyfin.louis45.de
+docker.local jellyfin.louis45.de
