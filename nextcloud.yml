@@ -42,7 +42,7 @@ services:
       - MYSQL_PASSWORD=!!!CENSORED!!!
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_HOST=192.168.178.188:3309
+      - MYSQL_HOST=192.168.1.188:3309
       - PHP_MEMORY_LIMIT=4096M
       - PHP_UPLOAD_LIMIT=102400M
     labels:
@@ -70,7 +70,7 @@ services:
       - MYSQL_PASSWORD=!!!CENSORED!!!
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_HOST=192.168.178.188:3309
+      - MYSQL_HOST=192.168.1.188:3309
     entrypoint: /cron.sh
     depends_on:
       - nextcloud-app
