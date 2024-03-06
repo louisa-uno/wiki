@@ -133,7 +133,7 @@ services:
       - PGID=0
       - TZ=Europe/Berlin
       - UMASK_SET=002
-      - serverIP=192.168.178.188
+      - serverIP=192.168.1.188
       - serverPort=8266
       - webUIPort=8265
       - internalNode=true
