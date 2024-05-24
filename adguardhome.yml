@@ -66,6 +66,7 @@ services:
       - "traefik.http.services.adguard-secure.loadbalancer.server.port=80"
     networks:
       - traefik-public
+    cpu_shares: 2048
 networks:
   traefik-public:
     external: true
