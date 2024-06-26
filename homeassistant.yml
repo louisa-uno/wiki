@@ -54,29 +54,6 @@ services:
           published: 3366
           mode: host
         restart: always
-    mosquitto:
-        container_name: mosquitto
-        image: eclipse-mosquitto:latest
-        user: 0:0
-        environment:
-            - TZ=Europe/Berlin
-        volumes:
-            - /mnt/docker-volumes/mosquitto-config:/mosquitto/config
-            - /mnt/docker-volumes/mosquitto-log:/mosquitto/log
-            - /mnt/docker-volumes/mosquitto-data:/mosquitto/data
-        healthcheck:
-            test: "mosquitto_sub -E -t '#'"
-            interval: 60s
-            timeout: 10s
-            retries: 5
-        ports:
-        - target: 1883
-          published: 1883
-          mode: host
-        - target: 8883
-          published: 8883
-          mode: host
-        restart: always
     esphome:
         container_name: esphome
         # This is a custom build for now. Based on https://github.com/esphome/esphome/pull/671
