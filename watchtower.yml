@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - REPO_USER=luois45
+      - REPO_PASS=!!!CENSORED!!!
+      - WATCHTOWER_WARN_ON_HEAD_FAILURE=never
