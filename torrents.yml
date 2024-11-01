@@ -169,65 +169,6 @@ services:
       published: 8787
       mode: host
     restart: unless-stopped
-  plex:
-    image: lscr.io/linuxserver/plex
-    container_name: plex
-    environment:
-      - PUID=0
-      - PGID=0
-      - TZ=Europe/Berlin
-      - VERSION=docker
-    volumes:
-      - /mnt/docker-volumes/plex-config:/config
-      - /mnt/nextcloud/louis/files/Medien/Serien:/tv
-      - /mnt/nextcloud/louis/files/Medien/Filme:/movies
-    ports:
-    - target: 32400
-      published: 32400
-      mode: host
-    - target: 1900
-      published: 1900
-      protocol: udp
-      mode: host
-    - target: 3005
-      published: 3005
-      mode: host
-    - target: 5353
-      published: 5353
-      protocol: udp
-      mode: host
-    - target: 8324
-      published: 8324
-      mode: host
-    - target: 32410
-      published: 32410
-      protocol: udp
-      mode: host
-    - target: 32412
-      published: 32412
-      protocol: udp
-      mode: host
-    - target: 32413
-      published: 32413
-      protocol: udp
-      mode: host
-    - target: 32414
-      published: 32414
-      protocol: udp
-      mode: host
-    - target: 32469
-      published: 32469
-      mode: host
-    restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.plex.rule=Host(`plex.louis45.de`)"
-      - "traefik.http.routers.plex.entrypoints=websecure"
-      - "traefik.http.routers.plex.tls=true"
-      - "traefik.http.services.plex.loadbalancer.server.port=32400"
-    networks:
-      - traefik-public
   jellyfin:
     image: jellyfin/jellyfin
     container_name: jellyfin
