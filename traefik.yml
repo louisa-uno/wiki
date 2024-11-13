@@ -27,6 +27,11 @@ services:
     restart: unless-stopped
     networks:
       - traefik-public
+  renew-certificate:
+    image: ghcr.io/louisa-uno/renew-traefic-certs:latest
+    volumes:
+      - /mnt/docker-volumes/traefik-certs:/certs
+    restart: unless-stopped
 networks:
   traefik-public:
     external: true
