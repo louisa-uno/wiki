@@ -48,9 +48,12 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.nextcloud-secure.rule=Host(`nextcloud.louis45.de`)"
-      - "traefik.http.routers.nextcloud-secure.entrypoints=websecure"
-      - "traefik.http.routers.nextcloud-secure.tls=true"
+      - "traefik.http.routers.nextcloud-secure-louis45-de.rule=Host(`nextcloud.louis45.de`)"
+      - "traefik.http.routers.nextcloud-secure-louis45-de.entrypoints=websecure"
+      - "traefik.http.routers.nextcloud-secure-louis45-de.tls=true"
+      - "traefik.http.routers.nextcloud-secure-louisa-uno.rule=Host(`cloud.louisa.uno`)"
+      - "traefik.http.routers.nextcloud-secure-louisa-uno.entrypoints=websecure"
+      - "traefik.http.routers.nextcloud-secure-louisa-uno.tls=true"
     networks:
       - traefik-public
   nextcloud-cron:
