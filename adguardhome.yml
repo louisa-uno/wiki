@@ -57,13 +57,6 @@ services:
         published: 5443
         protocol: udp
         mode: host
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.adguard-secure.rule=Host(`adguard.louisa.uno`)"
-      - "traefik.http.routers.adguard-secure.entrypoints=websecure"
-      - "traefik.http.routers.adguard-secure.tls=true"
-      - "traefik.http.services.adguard-secure.loadbalancer.server.port=80"
     networks:
       - traefik-public
     cpu_shares: 2048
