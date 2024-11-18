@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   flame:
-    image: pawelmalak/flame
+    image: ghcr.io/fdarveau/flame:latest
     container_name: flame
     volumes:
       - /mnt/docker-volumes/flame-data:/app/data
