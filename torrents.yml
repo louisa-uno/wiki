@@ -91,12 +91,6 @@ services:
     volumes:
       - /mnt/docker-volumes/jellyseerr-config:/app/config
     restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.louis45.de`)"
-      - "traefik.http.routers.jellyseerr.entrypoints=websecure"
-      - "traefik.http.routers.jellyseerr.tls=true"
     networks:
       - traefik-public
   bazarr:
