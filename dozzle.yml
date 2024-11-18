@@ -12,8 +12,6 @@ services:
     restart: unless-stopped
     environment:
       DOZZLE_LEVEL: trace
-      DOZZLE_USERNAME: admin
-      DOZZLE_PASSWORD: !!!CENSORED!!!
       DOZZLE_NO_ANALYTICS: 1
     healthcheck:
       test: [ "CMD", "/dozzle", "healthcheck" ]
@@ -21,12 +19,6 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.dozzle-secure.rule=Host(`dozzle.louis45.de`)"
-      - "traefik.http.routers.dozzle-secure.entrypoints=websecure"
-      - "traefik.http.routers.dozzle-secure.tls=true"
     networks:
       - traefik-public
 networks:
