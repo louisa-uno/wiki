@@ -60,7 +60,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.adguard-secure.rule=Host(`adguard.louis45.de`)"
+      - "traefik.http.routers.adguard-secure.rule=Host(`adguard.louisa.uno`)"
       - "traefik.http.routers.adguard-secure.entrypoints=websecure"
       - "traefik.http.routers.adguard-secure.tls=true"
       - "traefik.http.services.adguard-secure.loadbalancer.server.port=80"
