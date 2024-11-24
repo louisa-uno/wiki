@@ -11,10 +11,7 @@ services:
       mode: host
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.bitwarden.rule=Host(`bitwarden.louis45.de`)"
-      - "traefik.http.routers.bitwarden.entrypoints=websecure"
-      - "traefik.http.routers.bitwarden.tls=true"
+      - "traefik.http.routers.bitwarden.rule=Host(`pw.louisa.uno`)"
     networks:
       - traefik-public
 networks:
