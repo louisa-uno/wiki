@@ -8,7 +8,7 @@ services:
     ports:
     - target: 80
       published: 480
-      mode: host
+      mode: ingress
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.bitwarden.rule=Host(`pw.louisa.uno`)"
