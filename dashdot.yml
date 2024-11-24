@@ -8,6 +8,9 @@ services:
     - target: 3001
       published: 3301
       mode: host
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashdot.rule=Host(`dashdot.louisa.uno`)"
     restart: unless-stopped
     privileged: true
     environment:
