@@ -20,22 +20,22 @@ services:
       start_period: 1m
       interval: 1m
       timeout: 5s
-      retries: 3 
+      retries: 3
   nextcloud-app:
     image: nextcloud
-    container_name: nextcloud-app
     ports:
     - target: 80
       published: 980
-      mode: host
+      mode: ingress
     volumes:
       - /mnt/docker-volumes/nextcloud-config:/var/www/html
       - /mnt/docker-volumes/nextcloud-cron/www-data:/var/spool/cron/crontabs/www-data
+      - /mnt/docker-volumes/nextcloud-config-mount/tweak.ini:/usr/local/etc/php/conf.d/tweak.ini:ro
       - /etc/localtime:/etc/localtime:ro
       - /mnt/nextcloud:/mnt/nextcloud
       - type: tmpfs
         target: /tmp
-    restart: unless-stopped
+    restart: always
     links:
       - db
     environment:
@@ -43,22 +43,17 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=192.168.1.188:3309
-      - PHP_MEMORY_LIMIT=4096M
+      - PHP_MEMORY_LIMIT=8192M
       - PHP_UPLOAD_LIMIT=102400M
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.nextcloud-secure-louis45-de.rule=Host(`nextcloud.louis45.de`)"
-      - "traefik.http.routers.nextcloud-secure-louis45-de.entrypoints=websecure"
-      - "traefik.http.routers.nextcloud-secure-louis45-de.tls=true"
-      - "traefik.http.routers.nextcloud-secure-louisa-uno.rule=Host(`cloud.louisa.uno`)"
-      - "traefik.http.routers.nextcloud-secure-louisa-uno.entrypoints=websecure"
-      - "traefik.http.routers.nextcloud-secure-louisa-uno.tls=true"
+      - "traefik.http.routers.nextcloud.rule=Host(`cloud.louisa.uno`)||Host(`nextcloud.louis45.de`)"
     networks:
       - traefik-public
+    depends_on:
+      - db
   nextcloud-cron:
     image: nextcloud
-    container_name: nextcloud-cron
     volumes:
       - /mnt/docker-volumes/nextcloud-config:/var/www/html
       - /mnt/docker-volumes/nextcloud-cron/www-data:/var/spool/cron/crontabs/www-data
@@ -66,7 +61,7 @@ services:
       - /mnt/nextcloud:/mnt/nextcloud
       - type: tmpfs
         target: /tmp
-    restart: unless-stopped
+    restart: always
     links:
       - db
     environment:
@@ -76,6 +71,7 @@ services:
       - MYSQL_HOST=192.168.1.188:3309
     entrypoint: /cron.sh
     depends_on:
+      - db
       - nextcloud-app
 networks:
   traefik-public:
