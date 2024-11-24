@@ -19,7 +19,12 @@ services:
     ports:
     - target: 8989
       published: 8989
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.louisa.uno`)"
+    networks:
+      - traefik-public
     restart: unless-stopped
   radarr:
     image: linuxserver/radarr
@@ -40,7 +45,12 @@ services:
     ports:
     - target: 7878
       published: 7878
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.radarr.rule=Host(`radarr.louisa.uno`)"
+    networks:
+      - traefik-public
     restart: unless-stopped
   jackett:
     image: lscr.io/linuxserver/jackett
@@ -56,7 +66,12 @@ services:
     ports:
     - target: 9117
       published: 9117
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jackett.rule=Host(`jackett.louisa.uno`)"
+    networks:
+      - traefik-public
     restart: unless-stopped
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent
@@ -72,7 +87,13 @@ services:
     ports:
     - target: 8080
       published: 8080
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.louisa.uno`)"
+      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
+    networks:
+      - traefik-public
     restart: unless-stopped
   jellyseerr:
     image: fallenbagel/jellyseerr
@@ -87,12 +108,15 @@ services:
     ports:
     - target: 5055
       published: 5055
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.louisa.uno`)"
+    networks:
+      - traefik-public
     volumes:
       - /mnt/docker-volumes/jellyseerr-config:/app/config
     restart: unless-stopped
-    networks:
-      - traefik-public
   bazarr:
     image: lscr.io/linuxserver/bazarr
     container_name: bazarr
@@ -107,7 +131,12 @@ services:
     ports:
     - target: 6767
       published: 6767
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bazarr.rule=Host(`bazarr.louisa.uno`)"
+    networks:
+      - traefik-public
     restart: unless-stopped
   tdarr:
     container_name: tdarr
@@ -115,13 +144,12 @@ services:
     ports:
     - target: 8265
       published: 8265
-      mode: host
-    - target: 8266
-      published: 8266
-      mode: host
-    - target: 8267
-      published: 8267
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tdarr.rule=Host(`tdarr.louisa.uno`)"
+    networks:
+      - traefik-public
     environment:
       - PUID=0
       - PGID=0
@@ -159,7 +187,12 @@ services:
     ports:
     - target: 8787
       published: 8787
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.readarr.rule=Host(`readarr.louisa.uno`)"
+    networks:
+      - traefik-public
     restart: unless-stopped
   jellyfin:
     image: jellyfin/jellyfin
@@ -171,25 +204,13 @@ services:
     ports:
     - target: 8096
       published: 8096
-      mode: host
-    - target: 1900
-      published: 11900
-      protocol: udp
-      mode: host
-    - target: 7359
-      published: 7359
-      protocol: udp
-      mode: host
-    restart: unless-stopped
+      mode: ingress
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.louis45.de`)"
-      - "traefik.http.routers.jellyfin.entrypoints=websecure"
-      - "traefik.http.routers.jellyfin.tls=true"
-      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.louisa.uno`)"
     networks:
       - traefik-public
+    restart: unless-stopped
   kavita:
     image: kizaing/kavita
     container_name: kavita
@@ -203,7 +224,12 @@ services:
     ports:
     - target: 5000
       published: 5000
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kavita.rule=Host(`kavita.louisa.uno`)"
+    networks:
+      - traefik-public
     restart: unless-stopped
 networks:
   traefik-public:
