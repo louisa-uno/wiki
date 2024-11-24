@@ -6,14 +6,11 @@ services:
     ports:
       - target: 3000
         published: 3039
-        mode: host
+        mode: ingress
     image: openspeedtest/latest
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
       - "traefik.http.routers.openspeedtest.rule=Host(`openspeedtest.louisa.uno`)"
-      - "traefik.http.routers.openspeedtest.entrypoints=websecure"
-      - "traefik.http.routers.openspeedtest.tls=true"
     networks:
       - traefik-public
 networks:
