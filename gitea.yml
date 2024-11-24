@@ -15,16 +15,13 @@ services:
     ports:
     - target: 3000
       published: 3000
-      mode: host
+      mode: ingress
     - target: 22
       published: 222
       mode: host
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.gitea.rule=Host(`gitea.louis45.de`)"
-      - "traefik.http.routers.gitea.entrypoints=websecure"
-      - "traefik.http.routers.gitea.tls=true"
+      - "traefik.http.routers.gitea.rule=Host(`gitea.louisa.uno`)"
       - "traefik.http.services.gitea.loadbalancer.server.port=3000"
     networks:
       - traefik-public
