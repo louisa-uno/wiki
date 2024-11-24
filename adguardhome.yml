@@ -22,7 +22,6 @@ services:
         mode: host
     networks:
       - traefik-public
-    cpu_shares: 2048
 networks:
   traefik-public:
     external: true
