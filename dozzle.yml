@@ -8,7 +8,10 @@ services:
     ports:
     - target: 8080
       published: 48080
-      mode: host
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dozzle.rule=Host(`dozzle.louisa.uno`)"
     restart: unless-stopped
     environment:
       DOZZLE_LEVEL: trace
