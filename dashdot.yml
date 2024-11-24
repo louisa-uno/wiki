@@ -7,7 +7,7 @@ services:
     ports:
     - target: 3001
       published: 3301
-      mode: host
+      mode: ingress
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashdot.rule=Host(`dashdot.louisa.uno`)"
