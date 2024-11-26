@@ -111,7 +111,6 @@ services:
       - traefik-public
     volumes:
       - /mnt/docker-volumes/jellyseerr-config:/app/config
-      - /mnt/docker-volumes/jellyseerr-config/hosts:/etc/hosts
     restart: unless-stopped
   bazarr:
     image: lscr.io/linuxserver/bazarr
