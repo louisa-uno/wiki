@@ -104,8 +104,6 @@ services:
     - target: 5055
       published: 5055
       mode: ingress
-    dns:
-    - 192.168.1.188
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.louisa.uno`)"
@@ -113,7 +111,6 @@ services:
       - traefik-public
     volumes:
       - /mnt/docker-volumes/jellyseerr-config:/app/config
-      - /mnt/docker-volumes/jellyseerr-config/resolv.conf:/etc/resolv.conf:ro
     restart: unless-stopped
   bazarr:
     image: lscr.io/linuxserver/bazarr
