@@ -104,9 +104,7 @@ services:
     - target: 5055
       published: 5055
       mode: ingress
-    dns:
-      - 192.168.1.188
-      - 192.168.1.1
+    command: sed -i 's/^nameserver .*/nameserver 192.168.1.1/' /etc/resolv.conf
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.louisa.uno`)"
