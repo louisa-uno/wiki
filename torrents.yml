@@ -145,6 +145,12 @@ services:
     - target: 8265
       published: 8265
       mode: ingress
+    - target: 8266
+      published: 8266
+      mode: host
+    - target: 8267
+      published: 8267
+      mode: host
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.tdarr.rule=Host(`tdarr.louisa.uno`)"
