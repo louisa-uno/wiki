@@ -105,7 +105,8 @@ services:
       published: 5055
       mode: ingress
     dns:
-      - 127.0.0.
+      - 192.168.1.188
+      - 192.168.1.1
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.louisa.uno`)"
