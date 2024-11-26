@@ -104,7 +104,6 @@ services:
     - target: 5055
       published: 5055
       mode: ingress
-    command: echo "192.168.1.188 jellyfin.louisa.uno" | tee -a /etc/hosts 
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.louisa.uno`)"
@@ -112,6 +111,7 @@ services:
       - traefik-public
     volumes:
       - /mnt/docker-volumes/jellyseerr-config:/app/config
+      - /mnt/docker-volumes/jellyseerr-config/hosts:/etc/hosts
     restart: unless-stopped
   bazarr:
     image: lscr.io/linuxserver/bazarr
