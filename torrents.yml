@@ -178,30 +178,6 @@ services:
       - /mnt/nextcloud/louis/files/InstantUpload:/home/Tdarr/Media/Nextcloud/InstantUpload
       - /mnt/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
     restart: unless-stopped
-  tdarr-node:
-    image: ghcr.io/haveagitgat/tdarr_node:latest
-    restart: unless-stopped
-    network_mode: service:tdarr
-    environment:
-      - PUID=0
-      - PGID=0
-      - TZ=Europe/Berlin
-      - UMASK_SET=002
-      - nodeName=DockerNode2
-      - serverIP=192.168.1.188
-      - serverPort=8266
-      - inContainer=true
-      - ffmpegVersion=6
-    volumes:
-      - /mnt/docker-volumes/tdarr-server:/app/server
-      - /mnt/docker-volumes/tdarr-configs:/app/configs
-      - /mnt/docker-volumes/tdarr-media:/media
-      - /transcode_cache:/temp
-      - /mnt/nextcloud/louis/files/Medien/Filme:/home/Tdarr/Media/Movies
-      - /mnt/nextcloud/louis/files/Medien/Serien:/home/Tdarr/Media/TVShows
-      - /mnt/nextcloud/louis/files/Fotos:/home/Tdarr/Media/Nextcloud/Fotos
-      - /mnt/nextcloud/louis/files/InstantUpload:/home/Tdarr/Media/Nextcloud/InstantUpload
-      - /mnt/nextcloud/louis/files/Medien/Tdarr-Samples:/app/server/Tdarr/Samples
   readarr:
     image: linuxserver/readarr:develop
     container_name: readarr
