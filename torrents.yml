@@ -91,27 +91,6 @@ services:
     networks:
       - traefik-public
     restart: unless-stopped
-  jellyseerr:
-    image: fallenbagel/jellyseerr
-    depends_on:
-      - sonarr
-      - radarr
-      - jellyfin
-    environment:
-      - LOG_LEVEL=debug
-      - TZ=Europe/Berlin
-    ports:
-    - target: 5055
-      published: 5055
-      mode: ingress
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.louisa.uno`)"
-    networks:
-      - traefik-public
-    volumes:
-      - /mnt/docker-volumes/jellyseerr-config:/app/config
-    restart: unless-stopped
   bazarr:
     image: lscr.io/linuxserver/bazarr
     environment:
