@@ -2,7 +2,6 @@ version: "3.7"
 services:
   sonarr:
     image: linuxserver/sonarr
-    container_name: sonarr
     user: 0:0
     depends_on:
       - jackett
@@ -28,7 +27,6 @@ services:
     restart: unless-stopped
   radarr:
     image: linuxserver/radarr
-    container_name: radarr
     user: 0:0
     depends_on:
       - jackett
@@ -54,7 +52,6 @@ services:
     restart: unless-stopped
   jackett:
     image: lscr.io/linuxserver/jackett
-    container_name: jackett
     environment:
       - PUID=1000
       - PGID=1000
@@ -75,7 +72,6 @@ services:
     restart: unless-stopped
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent
-    container_name: qbittorrent
     environment:
       - PUID=1000
       - PGID=1000
@@ -97,7 +93,6 @@ services:
     restart: unless-stopped
   jellyseerr:
     image: fallenbagel/jellyseerr
-    container_name: jellyseerr
     depends_on:
       - sonarr
       - radarr
@@ -119,7 +114,6 @@ services:
     restart: unless-stopped
   bazarr:
     image: lscr.io/linuxserver/bazarr
-    container_name: bazarr
     environment:
       - PUID=0
       - PGID=0
@@ -139,7 +133,6 @@ services:
       - traefik-public
     restart: unless-stopped
   tdarr:
-    container_name: tdarr
     image: ghcr.io/haveagitgat/tdarr
     ports:
     - target: 8265
@@ -180,7 +173,6 @@ services:
     restart: unless-stopped
   readarr:
     image: linuxserver/readarr:develop
-    container_name: readarr
     environment:
       - PUID=0
       - PGID=0
@@ -202,7 +194,6 @@ services:
     restart: unless-stopped
   jellyfin:
     image: jellyfin/jellyfin
-    container_name: jellyfin
     volumes:
       - /mnt/docker-volumes/jellyfin-config:/config
       - /mnt/docker-volumes/jellyfin-cache:/cache
@@ -219,7 +210,6 @@ services:
     restart: unless-stopped
   kavita:
     image: kizaing/kavita
-    container_name: kavita
     environment:
       - PUID=0
       - PGID=0
