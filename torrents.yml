@@ -62,8 +62,11 @@ services:
       - /mnt/docker-volumes/jackett-downloads:/downloads
     ports:
     - target: 9117
-      published: 9117
+      published: 9116
       mode: ingress
+    - target: 9117
+      published: 9117
+      mode: host
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.jackett.rule=Host(`jackett.louisa.uno`)"
