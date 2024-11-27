@@ -22,6 +22,11 @@ services:
         mode: host
     networks:
       - traefik-public
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.25'
+          memory: 200M
 networks:
   traefik-public:
     external: true
