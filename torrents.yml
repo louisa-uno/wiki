@@ -194,7 +194,7 @@ services:
       - traefik-public
     restart: unless-stopped
   kavita:
-    image: kizaing/kavita
+    image: jvmilazz0/kavita:latest
     environment:
       - PUID=0
       - PGID=0
