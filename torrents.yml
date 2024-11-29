@@ -185,8 +185,11 @@ services:
       - /mnt/nextcloud/louis/files/Medien:/media
     ports:
     - target: 8096
-      published: 8096
+      published: 8095
       mode: ingress
+    - target: 8096
+      published: 8096
+      mode: host
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.louisa.uno`)"
