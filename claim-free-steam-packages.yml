@@ -11,7 +11,7 @@ services:
       mode: ingress
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.flame.rule=Host(`asf.louisa.uno`)"
+      - "traefik.http.routers.archisteamfarm.rule=Host(`asf.louisa.uno`)"
     networks:
       - traefik-public
   claim-free-steam-packages:
