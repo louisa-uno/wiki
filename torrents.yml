@@ -17,8 +17,11 @@ services:
       - /mnt/nextcloud/louis/files/Downloads:/downloads
     ports:
     - target: 8989
-      published: 8989
+      published: 8988
       mode: ingress
+    - target: 8989
+      published: 8989
+      mode: host
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.sonarr.rule=Host(`sonarr.louisa.uno`)"
@@ -42,8 +45,11 @@ services:
       - /mnt/nextcloud/louis/files/Downloads:/downloads
     ports:
     - target: 7878
-      published: 7878
+      published: 7877
       mode: ingress
+    - target: 7878
+      published: 7878
+      mode: host
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.radarr.rule=Host(`radarr.louisa.uno`)"
