@@ -9,12 +9,12 @@ services:
       published: 5678
       protocol: tcp
       mode: ingress
-      labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.n8n.rule=Host(`n8n.louisa.uno`)"
-      restart: unless-stopped
-      networks:
-        - traefik-public
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.n8n.rule=Host(`n8n.louisa.uno`)"
+    restart: unless-stopped
+    networks:
+      - traefik-public
 networks:
   traefik-public:
     external: true
