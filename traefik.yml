@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  reverse-proxy:
+  traefik:
     image: traefik:v3
     ports:
     - target: 443
@@ -19,7 +19,19 @@ services:
     restart: unless-stopped
     networks:
       - traefik-public
-  renew-certificate:
+  whoami:
+    image: traefik/whoami
+    ports:
+    - target: 80
+      published: 8071
+      mode: ingress
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.louisa.uno`)"
+    restart: unless-stopped
+    networks:
+      - traefik-public
+  renew-traefic-certs:
     image: ghcr.io/louisa-uno/renew-traefic-certs:latest
     volumes:
       - /mnt/docker-volumes/traefik-certs:/certs
