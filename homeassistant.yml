@@ -46,31 +46,6 @@ services:
       published: 3366
       mode: host
     restart: always
-  esphome:
-    # This is a custom build for now. Based on https://github.com/esphome/esphome/pull/671
-    #image: esphome-dev
-    #image: esphome/esphome:2021.10.3
-    image: esphome/esphome
-    environment:
-        - TZ=Europe/Berlin
-    volumes:
-        - /mnt/docker-volumes/esphome-data:/config
-        - /etc/localtime:/etc/localtime:ro
-    ports:
-    - target: 6052
-      published: 6052
-      mode: host
-    restart: unless-stopped
-  cupholder:
-    image: luois45/cupholder
-    devices:
-        - /dev/cdrom:/dev/cdrom
-    ports:
-    - target: 3280
-      published: 3280
-      mode: host
-    restart: unless-stopped
-
 networks:
   traefik-public:
     external: true
