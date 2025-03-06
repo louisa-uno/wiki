@@ -1,23 +1,7 @@
 version: '3.7'
 services:
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    command: tunnel --no-autoupdate run --token !!!CENSORED!!!
-    deploy:
-      replicas: 5
-      restart_policy:
-        condition: on-failure
   reverse-proxy:
     image: traefik:v2.10
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-      - "--entrypoints.websecure.address=:443"
-      - "--providers.file.filename=/certs/dynamic_conf.yml"
     ports:
     - target: 443
       published: 443
@@ -29,8 +13,9 @@ services:
       published: 81
       mode: host
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /mnt/docker-volumes/traefik-certs:/certs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /mnt/docker-volumes/traefik-certs:/certs:ro
+      - /mnt/docker-volumes/traefik-certs/static_conf.yml:/etc/traefik/traefik.yml:ro
     restart: unless-stopped
     networks:
       - traefik-public
