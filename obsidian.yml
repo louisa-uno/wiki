@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  couchdb-for-ols:
+    image: couchdb
+    ports:
+    - target: 5984
+      published: 5984
+      mode: ingress
+    volumes:
+      - /mnt/docker-volumes/obsidian-couchdb-data:/opt/couchdb/data
+      - /mnt/docker-volumes/obsidian-couchdb-etc:/opt/couchdb/etc/local.d
+    environment:
+      - COUCHDB_USER=louisa
+      - COUCHDB_PASSWORD=!!!CENSORED!!!
+    restart: always
