@@ -5,7 +5,7 @@ services:
     ports:
     - target: 5984
       published: 5984
-      mode: ingress
+      mode: host
     volumes:
       - /mnt/docker-volumes/obsidian-couchdb-data:/opt/couchdb/data
       - /mnt/docker-volumes/obsidian-couchdb-etc:/opt/couchdb/etc/local.d
