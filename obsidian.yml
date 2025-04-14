@@ -5,11 +5,30 @@ services:
     ports:
     - target: 5984
       published: 5984
-      mode: host
+      mode: ingress
     volumes:
       - /mnt/docker-volumes/obsidian-couchdb-data:/opt/couchdb/data
       - /mnt/docker-volumes/obsidian-couchdb-etc:/opt/couchdb/etc/local.d
     environment:
       - COUCHDB_USER=louisa
       - COUCHDB_PASSWORD=!!!CENSORED!!!
-    restart: always
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.obsidian.rule=Host(`obsidian.louisa.uno`)"
+      - "traefik.http.routers.obsidian.middlewares=obsidian-cors"
+      
+      - "traefik.http.routers.obsidian.service=obsidian"
+      - "traefik.http.services.obsidian.loadbalancer.server.port=5984"
+      
+      - "traefik.http.middlewares.obsidian-cors.headers.accesscontrolallowmethods=GET,PUT,POST,HEAD,DELETE"
+      - "traefik.http.middlewares.obsidian-cors.headers.accesscontrolallowheaders=accept,authorization,content-type,origin,referer"
+      - "traefik.http.middlewares.obsidian-cors.headers.accesscontrolalloworiginlist=app://obsidian.md,capacitor://localhost,http://localhost"
+      - "traefik.http.middlewares.obsidian-cors.headers.accesscontrolmaxage=3600"
+      - "traefik.http.middlewares.obsidian-cors.headers.addvaryheader=true"
+      - "traefik.http.middlewares.obsidian-cors.headers.accessControlAllowCredentials=true"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
