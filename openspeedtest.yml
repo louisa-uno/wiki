@@ -11,6 +11,10 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.openspeedtest.rule=Host(`openspeedtest.louisa.uno`)"
+      
+      - "traefik.http.routers.openspeedtest.middlewares=limit"
+      
+      - "traefik.http.middlewares.limit.buffering.maxRequestBodyBytes=10000000000"
     networks:
       - traefik-public
 networks:
