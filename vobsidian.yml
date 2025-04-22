@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  couchdb-for-ols:
+    image: couchdb
+    volumes:
+      - couchdb-data:/opt/couchdb/data
+      - couchdb-etc:/opt/couchdb/etc/local.d
+    environment:
+      - COUCHDB_USER=louisa
+      - COUCHDB_PASSWORD=!!!CENSORED!!!
+    restart: unless-stopped
+    networks:
+      - cloudflared
+networks:
+  cloudflared:
+    external: true
+volumes:
+  couchdb-data:
+  couchdb-etc:
