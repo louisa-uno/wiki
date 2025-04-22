@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token !!!CENSORED!!!
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+    - cloudflared
+networks:
+  cloudflared:
+    external: true
