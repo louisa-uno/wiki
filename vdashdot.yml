@@ -12,6 +12,7 @@ services:
       - DASHDOT_ENABLE_STORAGE_SPLIT_VIEW=true
       - DASHDOT_USE_IMPERIAL=false
       - DASHDOT_ACCEPT_OOKLA_EULA=true
+      - DASHDOT_USE_NETWORK_INTERFACE=eth0
     networks:
     - cloudflared
 networks:
