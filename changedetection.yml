@@ -1,26 +1,19 @@
-version: '3.7'
 services:
-    changedetection:
-      image: ghcr.io/dgtlmoon/changedetection.io
-      container_name: changedetection
-      hostname: changedetection
-      volumes:
-        - /mnt/docker-volumes/changedetection-data:/datastore
-      ports:
-      - target: 5000
-        published: 5096
-        protocol: tcp
-        mode: ingress
-      labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.changedetection.rule=Host(`changedetection.louisa.uno`)"
+  changedetection:
+    image: ghcr.io/dgtlmoon/changedetection.io
+    container_name: changedetection
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    volumes:
+      - data:/datastore
+    restart: unless-stopped
+  browser-chrome:
+      hostname: browser-chrome
+      image: selenium/standalone-chrome-debug:3.141.59
       restart: unless-stopped
-      networks:
-        - traefik-public
-    browser-chrome:
-        hostname: browser-chrome
-        image: selenium/standalone-chrome-debug:3.141.59
-        restart: unless-stopped
-networks:
-  traefik-public:
-    external: true
+      
+volumes:
+  data:
+    driver: local
